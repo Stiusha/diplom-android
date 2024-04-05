@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_category"
-        android:name="com.example.menutestapplication.ui.fragments.category.CategoryFragment"
+        android:name="com.example.diplom.ui.fragments.category.CategoryFragment"
         android:label="Category"
         tools:layout="@layout/fragment_category">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_subcategory"
-        android:name="com.example.menutestapplication.ui.fragments.subcategory.SubcategoryFragment"
+        android:name="com.example.diplom.ui.fragments.subcategory.SubcategoryFragment"
         android:label="Subcategory"
         tools:layout="@layout/fragment_subcategory">
         <action
@@ -30,19 +30,19 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.menutestapplication.ui.fragments.dashboard.DashboardFragment"
+        android:name="com.example.diplom.ui.fragments.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.menutestapplication.ui.fragments.notifications.NotificationsFragment"
+        android:name="com.example.diplom.ui.fragments.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_product"
-        android:name="com.example.menutestapplication.ui.fragments.product.ProductFragment"
+        android:name="com.example.diplom.ui.fragments.product.ProductFragment"
         android:label="Product"
         tools:layout="@layout/fragment_product">
         <action
@@ -55,7 +55,7 @@
 
     <dialog
         android:id="@+id/navigation_filter_dialog"
-        android:name="com.example.menutestapplication.ui.fragments.filter.FilterDialogFragment"
+        android:name="com.example.diplom.ui.fragments.filter.FilterDialogFragment"
         android:label="Filter Fragment">
         <argument
             android:name="filterData"

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.menutestapplication"
+    namespace = "com.example.diplom"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.menutestapplication"
+        applicationId = "com.example.diplom"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

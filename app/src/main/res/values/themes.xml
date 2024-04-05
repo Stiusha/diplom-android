@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="Theme.MenuTestApplication" parent="Basic">
+    <style name="Theme.DiplomApplication" parent="Basic">
 
     </style>
 </resources>
