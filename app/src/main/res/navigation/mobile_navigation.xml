@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_category">
+
+    <fragment
+        android:id="@+id/navigation_category"
+        android:name="com.example.menutestapplication.ui.fragments.category.CategoryFragment"
+        android:label="Category"
+        tools:layout="@layout/fragment_category">
+        <action
+            android:id="@+id/action_navigation_category_to_navigation_subcategory"
+            app:destination="@id/navigation_subcategory" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_subcategory"
+        android:name="com.example.menutestapplication.ui.fragments.subcategory.SubcategoryFragment"
+        android:label="Subcategory"
+        tools:layout="@layout/fragment_subcategory">
+        <action
+            android:id="@+id/action_navigation_subcategory_to_navigation_product"
+            app:destination="@id/navigation_product" />
+        <argument
+            android:name="categoryId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.menutestapplication.ui.fragments.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.menutestapplication.ui.fragments.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_product"
+        android:name="com.example.menutestapplication.ui.fragments.product.ProductFragment"
+        android:label="Product"
+        tools:layout="@layout/fragment_product">
+        <action
+            android:id="@+id/action_navigation_product_to_navigation_filter_dialog"
+            app:destination="@id/navigation_filter_dialog" />
+        <argument
+            android:name="subcategoryId"
+            app:argType="long" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/navigation_filter_dialog"
+        android:name="com.example.menutestapplication.ui.fragments.filter.FilterDialogFragment"
+        android:label="Filter Fragment">
+        <argument
+            android:name="filterData"
+            app:argType="string"
+            app:nullable="true" />
+    </dialog>
+</navigation>
