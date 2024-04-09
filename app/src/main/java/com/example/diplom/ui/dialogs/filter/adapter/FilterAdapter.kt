@@ -1,11 +1,11 @@
-package com.example.diplom.ui.fragments.filter.adapter
+package com.example.diplom.ui.dialogs.filter.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.diplom.databinding.FilterItemBinding
 import com.example.diplom.retrofit.dto.filter.FilterItemDto
-import com.example.diplom.ui.fragments.filter.SetFilterStateListener
+import com.example.diplom.ui.dialogs.filter.SetFilterStateListener
 import com.example.diplom.ui.parent.AbstractAdapter
 import com.example.diplom.ui.utils.LinearSpacingItemDecoration
 

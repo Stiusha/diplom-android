@@ -1,10 +1,10 @@
-package com.example.diplom.ui.fragments.filter.adapter
+package com.example.diplom.ui.dialogs.filter.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.diplom.databinding.FilterSubitemBinding
 import com.example.diplom.retrofit.dto.filter.FilterValueDto
-import com.example.diplom.ui.fragments.filter.SetFilterStateListener
+import com.example.diplom.ui.dialogs.filter.SetFilterStateListener
 import com.example.diplom.ui.parent.AbstractAdapter
 
 class SubFilterAdapter(

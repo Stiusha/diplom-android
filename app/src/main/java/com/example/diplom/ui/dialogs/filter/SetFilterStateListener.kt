@@ -1,4 +1,4 @@
-package com.example.diplom.ui.fragments.filter
+package com.example.diplom.ui.dialogs.filter
 
 import com.example.diplom.retrofit.dto.search.FilterDto
 

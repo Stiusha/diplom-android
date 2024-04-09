@@ -51,15 +51,27 @@
         <argument
             android:name="subcategoryId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_navigation_product_to_sortDialogFragment"
+            app:destination="@id/sortDialogFragment" />
     </fragment>
 
     <dialog
         android:id="@+id/navigation_filter_dialog"
-        android:name="com.example.diplom.ui.fragments.filter.FilterDialogFragment"
+        android:name="com.example.diplom.ui.dialogs.filter.FilterDialogFragment"
         android:label="Filter Fragment">
         <argument
             android:name="filterData"
             app:argType="string"
             app:nullable="true" />
+    </dialog>
+    <dialog
+        android:id="@+id/sortDialogFragment"
+        android:name="com.example.diplom.ui.dialogs.sort.SortDialogFragment"
+        android:label="SortDialogFragment">
+        <argument
+            android:name="sortId"
+            android:defaultValue="-1L"
+            app:argType="long" />
     </dialog>
 </navigation>

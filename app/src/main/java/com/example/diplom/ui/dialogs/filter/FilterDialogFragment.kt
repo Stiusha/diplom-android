@@ -1,4 +1,4 @@
-package com.example.diplom.ui.fragments.filter
+package com.example.diplom.ui.dialogs.filter
 
 import android.os.Bundle
 import android.util.Log
@@ -14,9 +14,9 @@ import com.example.diplom.retrofit.configuration.WebClient
 import com.example.diplom.retrofit.dto.filter.FilterViewDto
 import com.example.diplom.retrofit.dto.search.FilterDto
 import com.example.diplom.retrofit.dto.search.FilterKeysDto
-import com.example.diplom.ui.fragments.filter.adapter.FilterAdapter
-import com.example.diplom.ui.fragments.filter.seekbar.PriceMaxChangeListener
-import com.example.diplom.ui.fragments.filter.seekbar.PriceMinChangeListener
+import com.example.diplom.ui.dialogs.filter.adapter.FilterAdapter
+import com.example.diplom.ui.dialogs.filter.seekbar.PriceMaxChangeListener
+import com.example.diplom.ui.dialogs.filter.seekbar.PriceMinChangeListener
 import com.example.diplom.ui.utils.LinearSpacingItemDecoration
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
@@ -47,7 +47,7 @@ class FilterDialogFragment : DialogFragment(), SetFilterStateListener {
             cleanFilterDto()
             val json: String = Gson().toJson(filterData)
             Log.i("FilterDialogFragment", "DIALOG RESPONSE = $arguments")
-            setFragmentResult("dialogKey", bundleOf("filterData" to json))
+            setFragmentResult("dialogFilterKey", bundleOf("filterData" to json))
             dismiss()
         }
 

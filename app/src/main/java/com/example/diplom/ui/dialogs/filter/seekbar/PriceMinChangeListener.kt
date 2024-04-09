@@ -1,8 +1,8 @@
-package com.example.diplom.ui.fragments.filter.seekbar
+package com.example.diplom.ui.dialogs.filter.seekbar
 
 import android.widget.SeekBar
 import com.example.diplom.databinding.FragmentFilterDialogBinding
-import com.example.diplom.ui.fragments.filter.SetFilterStateListener
+import com.example.diplom.ui.dialogs.filter.SetFilterStateListener
 
 class PriceMinChangeListener(
     private val binding: FragmentFilterDialogBinding,

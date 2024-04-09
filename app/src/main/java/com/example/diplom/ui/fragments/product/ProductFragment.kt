@@ -33,21 +33,21 @@ class ProductFragment : Fragment(), ProductItemClickListener {
     private var _viewModel: ProductViewModel? = null
     private val viewModel get() = _viewModel!!
 
-    private var _filterDto: FilterDto? = null
-    private val filterData get() = _filterDto!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         Log.i("ProductFragment", "START----------------------------")
-        _viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+        _viewModel = ViewModelProvider(this)[ProductViewModel::class.java]
         _binding = FragmentProductBinding.inflate(inflater, container, false)
-        if (_filterDto == null) {
-            _filterDto =
-                FilterDto(arguments?.getLong("subcategoryId")!!, null, null, mutableListOf())
-        }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.filterDto.value =
+            FilterDto(arguments?.getLong("subcategoryId")!!, null, null, mutableListOf())
 
         binding.productList.addItemDecoration(LinearSpacingItemDecoration(10))
         binding.productList.layoutManager = LinearLayoutManager(this.context)
@@ -56,36 +56,46 @@ class ProductFragment : Fragment(), ProductItemClickListener {
             binding.productList.adapter = ProductAdapter(it, this)
         }
 
+        viewModel.filterDto.observe(viewLifecycleOwner) {
+            viewProducts()
+        }
+
+        viewModel.sortId.observe(viewLifecycleOwner) {
+            viewProducts()
+        }
+
         binding.filter.setOnClickListener {
             Log.i("ProductFragment", "Arguments PRODUCTS = $arguments")
-            val json = Gson().toJson(filterData)
+            val json = Gson().toJson(viewModel.filterDto.value)
             val action: NavDirections =
                 ProductFragmentDirections.actionNavigationProductToNavigationFilterDialog(json)
             (requireActivity() as MainActivity).openFragmentAction(action)
         }
 
-        setFragmentResultListener("dialogKey") { _, bundle ->
-            val json = bundle.getString("filterData")
-            val filterDto = Gson().fromJson(json, FilterDto::class.java)
-            _filterDto = filterDto
-            viewProducts(filterDto)
+        binding.sort.setOnClickListener {
+            val action: NavDirections =
+                ProductFragmentDirections.actionNavigationProductToSortDialogFragment(viewModel.sortId.value!!)
+            (requireActivity() as MainActivity).openFragmentAction(action)
         }
 
+        setFragmentResultListener("dialogFilterKey") { _, bundle ->
+            val json = bundle.getString("filterData")
+            val filterDto = Gson().fromJson(json, FilterDto::class.java)
+            viewModel.filterDto.value = filterDto
+        }
 
-        return binding.root
+        setFragmentResultListener("dialogSortKey") { _, bundle ->
+            val sortId = bundle.getLong("sortId")
+            viewModel.sortId.value = sortId
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        val subcategoryId = arguments?.getLong("subcategoryId")
-//        val filterDto = FilterDto(subcategoryId!!, null, null, mutableListOf())
-        Log.i("ProductFragment", "REQUEST = $filterData")
-        viewProducts(filterData)
-    }
-
-    private fun viewProducts(filterDto: FilterDto) {
+    private fun viewProducts() {
         CoroutineScope(Dispatchers.IO).launch {
-            val list: List<ProductDto> = WebClient.productApi.getProducts(filterDto)
+            val list: List<ProductDto> = WebClient.productApi.getProducts(
+                viewModel.filterDto.value!!,
+                viewModel.sortId.value!!
+            )
             Log.i("ProductFragment", "RESPONSE PRODUCTS = $list")
             withContext(Dispatchers.Main) {
                 viewModel.products.value = list

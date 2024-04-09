@@ -17,9 +17,7 @@ class ProductAdapter(
         Picasso.get().load(data.productImage).into(binding.productItemImage)
         binding.productItemTitle.text = data.productName
         binding.productItemPrice.text = data.productPrice.toString() + "₴"
-//        binding.categoryItemContainer.setOnClickListener {
-//            clickListener.chooseProduct(data.getId())
-//        }
+        binding.productItemRate.rating = data.productRate.toFloat()
     }
 
     override fun createBinding(inflater: LayoutInflater, parent: ViewGroup): ProductItemBinding {
