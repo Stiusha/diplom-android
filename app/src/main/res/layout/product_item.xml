@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="product"
+                android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +108,6 @@
         app:srcCompat="@drawable/cart_arrow_down" />
 
     <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/materialDivider2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/gray_light"

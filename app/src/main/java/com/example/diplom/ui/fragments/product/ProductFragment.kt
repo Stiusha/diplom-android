@@ -18,7 +18,6 @@ import com.example.diplom.retrofit.dto.ProductDto
 import com.example.diplom.retrofit.dto.search.FilterDto
 import com.example.diplom.ui.fragments.product.adapter.ProductAdapter
 import com.example.diplom.ui.fragments.product.adapter.ProductItemClickListener
-import com.example.diplom.ui.utils.LinearSpacingItemDecoration
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,7 +48,7 @@ class ProductFragment : Fragment(), ProductItemClickListener {
         viewModel.filterDto.value =
             FilterDto(arguments?.getLong("subcategoryId")!!, null, null, mutableListOf())
 
-        binding.productList.addItemDecoration(LinearSpacingItemDecoration(10))
+//        binding.productList.addItemDecoration(LinearSpacingItemDecoration(10))
         binding.productList.layoutManager = LinearLayoutManager(this.context)
 
         viewModel.products.observe(viewLifecycleOwner) {

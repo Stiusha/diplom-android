@@ -56,7 +56,7 @@ class CategoryFragment : Fragment(), CategoryItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         CoroutineScope(Dispatchers.IO).launch {
             val list = WebClient.categoryApi.getCategories()
-            Log.i("MainActivity", "RESPONSE = $list")
+            Log.i("CategoryFragment", "RESPONSE = $list")
 
             withContext(Dispatchers.Main) {
                 binding.categoryList.adapter = CategoryAdapter(list, this@CategoryFragment)

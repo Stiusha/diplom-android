@@ -1,7 +1,6 @@
 package com.example.diplom
 
 import android.os.Bundle
-import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
@@ -52,10 +51,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    }
-
-    fun openFragment(@IdRes resId: Int, bundle: Bundle) {
-        navController.navigate(resId, bundle)
     }
 
     fun openFragmentAction(directions: NavDirections) {
