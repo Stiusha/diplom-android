@@ -2,24 +2,38 @@ package com.example.diplom.ui.fragments.category.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.example.diplom.databinding.CategoryItemBinding
-import com.example.diplom.retrofit.dto.Item
-import com.example.diplom.ui.parent.AbstractAdapter
+import com.example.diplom.retrofit.dto.CategoryDto
 import com.squareup.picasso.Picasso
 
-class CategoryAdapter(dataList: List<Item>, private val clickListener: CategoryItemClickListener) :
-    AbstractAdapter<CategoryItemBinding, Item>(dataList) {
+class CategoryAdapter(
+    private val dataList: List<CategoryDto>,
+    private val clickListener: CategoryItemClickListener
+) : RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
 
-    override fun bindViewHolder(binding: CategoryItemBinding, data: Item) {
-        Picasso.get().load(data.getImage()).into(binding.categoryItemImage)
-        binding.categoryItemTitle.text = data.getName()
-        binding.categoryItemContainer.setOnClickListener {
-            clickListener.chooseCategory(data.getId())
+    inner class ItemViewHolder(private val binding: CategoryItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: CategoryDto) {
+            Picasso.get().load(data.getImage()).into(binding.categoryItemImage)
+            binding.categoryItemTitle.text = data.getName()
+            binding.categoryItemContainer.setOnClickListener {
+                clickListener.chooseCategory(data.getId())
+            }
         }
     }
 
-    override fun createBinding(inflater: LayoutInflater, parent: ViewGroup): CategoryItemBinding {
-        return CategoryItemBinding.inflate(inflater, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val inflate = CategoryItemBinding.inflate(inflater, parent, false);
+        return ItemViewHolder(inflate)
     }
 
+    override fun getItemCount(): Int {
+        return dataList.size
+    }
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        holder.bind(dataList[position])
+    }
 }

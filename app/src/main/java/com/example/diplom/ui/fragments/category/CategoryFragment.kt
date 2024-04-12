@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.diplom.MainActivity
 import com.example.diplom.databinding.FragmentCategoryBinding
 import com.example.diplom.retrofit.configuration.WebClient
 import com.example.diplom.ui.fragments.category.adapter.CategoryAdapter
 import com.example.diplom.ui.fragments.category.adapter.CategoryItemClickListener
-import com.example.diplom.ui.utils.LinearSpacingItemDecoration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,27 +27,9 @@ class CategoryFragment : Fragment(), CategoryItemClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
-
         _binding = FragmentCategoryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-//        val textView: TextView = binding.textCategory
-//        categoryViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-
-//        textView.setOnClickListener {
-//            val bundle = Bundle()
-//            bundle.putLong("categoryId", 1L)
-//            (requireActivity() as MainActivity)
-//                .openFragment(R.id.action_navigation_category_to_navigation_subcategory, bundle)
-//        }
-        binding.categoryList.addItemDecoration(LinearSpacingItemDecoration(10))
         binding.categoryList.layoutManager = LinearLayoutManager(this.context)
-
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,7 +37,6 @@ class CategoryFragment : Fragment(), CategoryItemClickListener {
         CoroutineScope(Dispatchers.IO).launch {
             val list = WebClient.categoryApi.getCategories()
             Log.i("CategoryFragment", "RESPONSE = $list")
-
             withContext(Dispatchers.Main) {
                 binding.categoryList.adapter = CategoryAdapter(list, this@CategoryFragment)
             }

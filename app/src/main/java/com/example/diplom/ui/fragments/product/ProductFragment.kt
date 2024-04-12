@@ -40,6 +40,7 @@ class ProductFragment : Fragment(), ProductItemClickListener {
         Log.i("ProductFragment", "START----------------------------")
         _viewModel = ViewModelProvider(this)[ProductViewModel::class.java]
         _binding = FragmentProductBinding.inflate(inflater, container, false)
+        binding.productList.layoutManager = LinearLayoutManager(this.context)
         return binding.root
     }
 
@@ -48,11 +49,15 @@ class ProductFragment : Fragment(), ProductItemClickListener {
         viewModel.filterDto.value =
             FilterDto(arguments?.getLong("subcategoryId")!!, null, null, mutableListOf())
 
-//        binding.productList.addItemDecoration(LinearSpacingItemDecoration(10))
-        binding.productList.layoutManager = LinearLayoutManager(this.context)
-
         viewModel.products.observe(viewLifecycleOwner) {
-            binding.productList.adapter = ProductAdapter(it, this)
+            val adapter = binding.productList.adapter
+            if (adapter == null) {
+                Log.i("ProductFragment", "new data")
+                binding.productList.adapter = ProductAdapter(it, this)
+            } else {
+                Log.i("ProductFragment", "update data")
+                (adapter as ProductAdapter).updateData(it)
+            }
         }
 
         viewModel.filterDto.observe(viewLifecycleOwner) {
@@ -60,7 +65,9 @@ class ProductFragment : Fragment(), ProductItemClickListener {
         }
 
         viewModel.sortId.observe(viewLifecycleOwner) {
-            viewProducts()
+            if (it != -1L) {
+                viewProducts()
+            }
         }
 
         binding.filter.setOnClickListener {
@@ -79,13 +86,11 @@ class ProductFragment : Fragment(), ProductItemClickListener {
 
         setFragmentResultListener("dialogFilterKey") { _, bundle ->
             val json = bundle.getString("filterData")
-            val filterDto = Gson().fromJson(json, FilterDto::class.java)
-            viewModel.filterDto.value = filterDto
+            viewModel.filterDto.value = Gson().fromJson(json, FilterDto::class.java)
         }
 
         setFragmentResultListener("dialogSortKey") { _, bundle ->
-            val sortId = bundle.getLong("sortId")
-            viewModel.sortId.value = sortId
+            viewModel.sortId.value = bundle.getLong("sortId")
         }
     }
 
